@@ -1,34 +1,34 @@
 #test<-trainPredToothRF(cleanData,resp="Species",cond=TRUE)
 
-trainPredToothRF <- function(cleanData,resp="Tribe",cond=FALSE){
+
+trainPredToothRF2 <- function(cleanData,resp="Tribe",resp2="Species"){
   library(randomForest)
   cleanData[[resp]]<-as.character(cleanData[[resp]])
   
-  if (cond==FALSE){
+  
     #Create the formula
     cleanData[[resp]]<-as.factor(cleanData[[resp]])
     form<-formula(paste(resp,"~",paste(paste("pc",1:30,sep=""),collapse="+")))
-    outRF<-randomForest(form,data=cleanData)
-  }
+    outRFtribe<-randomForest(form,data=cleanData)
   
   
-  if (cond==TRUE){
+  #Predict Species conditional on Tribe
     modList<-list()
-    tribesVec<-unique(cleanData[["Tribe"]])
+    tribesVec<-unique(cleanData[[resp]])
     for (ttt in as.character(tribesVec)){print(ttt)
-                                         tribeDatTemp<-cleanData[cleanData[["Tribe"]]==ttt,]
+                                         tribeDatTemp<-cleanData[cleanData[[resp]]==ttt,]
                                          
                                          #subset the data 
                                          #Create the formula
                                          if (length(unique(tribeDatTemp$Species))>1){
-                                           tribeDatTemp[[resp]]<-as.factor(tribeDatTemp[[resp]])
-                                           form<-formula(paste(resp,"~",paste(paste("pc",1:30,sep=""),collapse="+")))
+                                           tribeDatTemp[[resp2]]<-as.factor(tribeDatTemp[[resp2]])
+                                           form<-formula(paste(resp2,"~",paste(paste("pc",1:30,sep=""),collapse="+")))
                                            modList[[ttt]]<-randomForest(form,data=tribeDatTemp)
                                          }
+                                         outRF<-list(tribe=outRFtribe,species=modList)
     }
-    outRF<-modList
+  outRF  
   }
-  outRF
   
   
-}
+  

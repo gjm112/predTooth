@@ -1,6 +1,6 @@
-RFtribe<-trainPredToothRF(cleanData,resp="Species",cond=TRUE)
-model<-RFtribe
-test<-predToothRF(model,predData,cond=TRUE,type="response")
+#RFtribe<-trainPredToothRF(cleanData,resp="Species",cond=TRUE)
+#model<-RFtribe
+#test<-predToothRF(model,predData,cond=TRUE,type="response")
 
 
 predToothRF <- function(model,predData,cond=FALSE,type="response"){

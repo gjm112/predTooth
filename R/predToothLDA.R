@@ -1,6 +1,6 @@
-LDAtribe<-trainPredToothLDA(cleanData,resp="Species",cond=TRUE)
-model<-LDAtribe
-predToothLDA(model,predData,cond=TRUE)
+#LDAtribe<-trainPredToothLDA(cleanData,resp="Species",cond=TRUE)
+#model<-LDAtribe
+#predToothLDA(model,predData,cond=TRUE)
 
 
 predToothLDA <- function(model,predData,cond=FALSE){
