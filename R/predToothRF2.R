@@ -6,6 +6,7 @@ predToothRF2 <- function(model,predData,type="prob"){
   
   #first predict Tribe
     predTribe <- predict(models[["tribe"]],predData,type=type)
+     
       
     predSpeciesGivenTribe<-list()  
     for (ttt in names(models$species)){
@@ -23,7 +24,9 @@ predToothRF2 <- function(model,predData,type="prob"){
     colnames(pred)[colnames(pred)=="Bovini"]<-"9"
     colnames(pred)[colnames(pred)=="Antilopini"]<-"5"
     pred<-pred[,as.character(c(1:20))]
-  out<-cbind(pred,predTribe)
+  
+    out<-list(probSpecies=pred,probTribe=as.numeric(predTribe))
+    names(out$probTribe)<-colnames(predTribe)
   out
 }
   
